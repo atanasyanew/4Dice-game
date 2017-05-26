@@ -1,0 +1,15 @@
+{
+    "lang": "en-US",
+    "name": "4 Dice Game",
+    "short_name": "4Dice",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#DCDCDC",
+    "theme_color": "#DCDCDC",
+    "description": "A simple dice game",
+    "icons": [{
+        "src": "images/logo-400.png",
+        "sizes": "any",
+        "type": "image/png"
+  }]
+}

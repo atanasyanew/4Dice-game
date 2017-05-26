@@ -1,0 +1,9 @@
+#my ignores
+
+# Ignore everything at root:
+# /*
+
+
+/public/firebase-debug.log
+
+database.rules.json

@@ -1,0 +1,37 @@
+/**
+ * Generates random number in a given range
+ * @method randomNumber
+ * @author bivanov
+ * @private
+ * @param  {integer} 	min			Minimum of the range (default value: 1)
+ * @param  {integer} 	max  		Mazimum of the range (default value: 100)
+ * @param  {function} math 		Custom random number function (default value: Math.random())
+ * @return {integer}      		Number from the range
+ */
+function randomNumber (min, max, math) {
+	math = math || Math.random();
+	if (min == -Infinity && max == Infinity) {
+		min = -1000;
+		max = 1000;
+	}
+	if (!isNaN(min) && min !== null && min === max) {
+		return min;
+	}
+	if (isNaN(min) || min === "" || min === null) {
+		min = 1;
+	}
+	if (isNaN(max) || max === "" || max === null) {
+		max = 100;
+	}
+	if (min === -Infinity) {
+		min = max - 1000;
+	}
+	if (max === Infinity) {
+		max = min + 1000;
+	}
+	var timeStamp = new Date().valueOf();
+	var seed = math * 100;
+	seed = (seed * timeStamp + 49297) % 233280;
+	var rnd = seed / 233280;
+	return Math.round(min + rnd * (max - min));
+}
