@@ -142,7 +142,7 @@
 
                                 <div class="btn-group btn-group-justified">
                                     <div class="btn-group" role="group">
-                                        <button id="rollDicesBtn" type="submit" class="btn btn-block btn-game"><i class="glyphicon glyphicon-play"></i> ROLL</button>
+                                        <button id="rollDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-play"></i> ROLL</button>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <button id="stopDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-stop"></i> STOP</button>
@@ -201,43 +201,72 @@
     </div>
     <!-- /container -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                    
+                    //config params
+                    var numberOfDices = 4;
+                    var playTurns = 10;
+            
+                    
+                    var guessTableRowCells = 3; // how manny tds per row
+                    var minValueGuess = numberOfDices - 1; // guess table min value
+                    var maxValueGuess = numberOfDices * 6; // guess table max value
+                    var game; //game object
+            
+                    game = new Game(numberOfDices, playTurns);
+
+                    // DOM vars
+                    var guesTable = document.getElementById("guesTable");
+                    var displayChosenNum = document.getElementById("displayChosenNum");
+                    var rollDicesBtn = document.getElementById("rollDicesBtn");
+                    var stopDicesBtn = document.getElementById("stopDicesBtn");
+
+
+                    // Generates table with number witch user to chose
+                    guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
+
+                    // listen for user guess
+                    guesTable.querySelectorAll("td").forEach(function(item) {
+
+                        item.addEventListener('click', function() {
+                            //alert("item." + item.innerHTML + " | this." + this.innerHTML);
+                            // get all tds
+                            let tds = guesTable.querySelectorAll("td");
+                            // in case some of them have applyed class
+                            tds.forEach(tdClass => tdClass.className = '');
+                            // display chosen number
+                            displayChosenNum.innerHTML = item.innerHTML;
+                            // add class to mark the selected number
+                            item.className = 'marked-number';
+                            // remove disabled from play btn
+                            rollDicesBtn.disabled = false;
+                            //lock all tds
+//                            tds.forEach(tdClass => tdClass.className = '');
+                        });
+                    });
+
+                    //animate rolling dices
+//                    rollDicesBtn.addEventListener('click', function() {
+//                        setInterval("startAnimateDice()", 100)
+//                    });
+//
+//                    stopDicesBtn.addEventListener('click', function() {
+//                        clearInterval()
+//                    });
+
+
+
+
+
+
+                })
+
+    </script>
+
+
 
     <script>
-        function createNumbersTable(startNum, endNum, tdCells) {
-
-            // creates table
-            // based on start end numbers 
-            // and how manny td per row
-
-            var table = "";
-            var rows = (endNum - startNum) / tdCells;
-
-            let i = 0;
-            while (i <= rows) {
-
-                table += "<tr>";
-
-                for (let j = 0; j < tdCells; j++) {
-                    if (startNum <= endNum) {
-                        table += "<td>" + startNum + "</td>"
-                    } else {
-                        table += "<td>" + "</td>"
-                    }
-                    startNum++
-                }
-                table += "</tr>";
-
-                i++;
-            }
-
-            return table;
-
-        }
-
-
-
-
-
         //fix navbar collapse for hashnav
         $(document).on('click', '.navbar-collapse.in', function(e) {
             if ($(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle') {
@@ -277,43 +306,6 @@
         window.onload = function() {
 
 
-            const guesTable = document.getElementById("guesTable");
-            const displayChosenNum = document.getElementById("displayChosenNum");
-            const rollDicesBtn = document.getElementById("rollDicesBtn");
-            const stopDicesBtn = document.getElementById("stopDicesBtn");
-
-
-            //generates table with number witch user to chose
-            guesTable.innerHTML = createNumbersTable(3, 18, 3);
-
-            //listen for all td clicks
-            guesTable.querySelectorAll("td").forEach(function(item) {
-
-                item.addEventListener('click', function() {
-                    //alert("item." + item.innerHTML + " | this." + this.innerHTML);
-
-                    // get all tds
-                    let tds = guesTable.querySelectorAll("td");
-                    // in case some of them have applyed class
-                    tds.forEach(tdClass => tdClass.className = '');
-                    // 
-
-                    //display chosen number
-                    displayChosenNum.innerHTML = item.innerHTML;
-                    //add class to mark the selected number
-                    item.className = 'marked-number';
-                });
-            });
-
-
-            //animate rolling dices
-            rollDicesBtn.addEventListener('click', function() {
-                setInterval("startAnimateDice()", 100)
-            });
-
-            stopDicesBtn.addEventListener('click', function() {
-                clearInterval()
-            });
 
 
 
