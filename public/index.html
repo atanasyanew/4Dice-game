@@ -38,7 +38,8 @@
     <!--  APP SCRIPTS  -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="./scripts/app.js"></script>
+    <script src="./scripts/appcore.js"></script>
+    <script src="./scripts/main.js"></script>
 
 </head>
 
@@ -75,8 +76,7 @@
     <div class="container">
 
         <!--     THE GAME PAGE    -->
-        <div class="page" id="game">
-
+        <div class="page" id="gameDashboard">
 
             <div class="row">
 
@@ -89,7 +89,6 @@
                             <li>Roll the dices</li>
                             <li>Get the score</li>
                         </ul>
-
                         <legend>The rules</legend>
                         <p>You can roll 10 times</p>
                         <p>Score valuation:</p>
@@ -98,56 +97,40 @@
                     </div>
                 </div>
 
-                <!--     THE GAME PLAYGRAUND     -->
+                <!--     THE GAME     -->
                 <div class="col-md-6">
 
+                    <!--     GAMES LEFT: 0  TOTAL SCORE: 0     -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <h3><span class="pull-left" id="turnsLeft">Games left: 10</span> <span class="pull-right" id="totalScore">Score: 0</span></h1>
-                        </div>
+                        <h3 class="text-center"><i class="material-icons">casino</i> PLAYGROUND</h3>
+                        <h3><span class="pull-left" id="turnsLeft">GAMES LEFT: 0</span> <span class="pull-right" id="totalScore">TOTAL SCORE: 0</span></h3>
                     </div>
-
                     <br>
 
+                    <!--     PLAYGRAUND     -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="text-center"><i class="material-icons">casino</i> PLAYGROUND</h1>
-                        </div>
-                    </div>
 
-                    <div class="row">
+                        <!--     GUESS TABLE     -->
                         <div class="col-md-6">
-                            <div class="">
-                                <table class="guess-table">
-                                    <tbody id="guesTable"></tbody>
-                                </table>
-                            </div>
+                            <table class="guess-table">
+                                <tbody id="guesTable"></tbody>
+                            </table>
                         </div>
-
+                        <!--     DICES, GAME BTNS     -->
                         <div class="col-md-6">
-                            <div class="">
-
-                                <div>
-                                    <h1 class="display-chosen-num" id="displayChosenNum"><i class="fa fa-question"></i></h1>
+                            <h1 id="displayChosenNum" class="display-chosen-num"><i class="fa fa-question"></i></h1>
+                            <div id="dice" class="dice-group"></div>
+                            <div class="btn-group btn-group-justified">
+                                <div class="btn-group" role="group">
+                                    <button id="rollDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-play"></i> ROLL</button>
                                 </div>
-
-                                <div id="dice" class="dice-group">
+                                <div class="btn-group" role="group">
+                                    <button id="stopDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-stop"></i> STOP</button>
                                 </div>
-
-                                <br>
-
-                                <div class="btn-group btn-group-justified">
-                                    <div class="btn-group" role="group">
-                                        <button id="rollDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-play"></i> ROLL</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button id="stopDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-stop"></i> STOP</button>
-                                    </div>
-                                </div>
-                                <h4 class="">Auto stop roll after <b>10s!</b></h4>
-                                <h3 class="bordered" id="roundScore">Game: 0 | Score: 0</h3>
                             </div>
+                            <h3 class="" id="roundScore">Game: 0 | Score: 0</h3>
                         </div>
+
                     </div>
 
                 </div>
@@ -162,7 +145,6 @@
                             <li>player 3 - 1200</li>
                             <li>player 4 - 1100</li>
                         </ul>
-
                         <legend><i class="glyphicon glyphicon-star"></i> MY Scores</legend>
                         <ul>
                             <li>score 1 - 10000</li>
@@ -180,14 +162,9 @@
         <div class="page" id="data">
             <div class="row">
                 <div class="col-xs-12">
-
                 </div>
             </div>
         </div>
-
-
-
-
 
         <!--     FOOTER     -->
         <hr>
@@ -198,166 +175,6 @@
     </div>
     <!-- /container -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
-            //config params
-            var numberOfDices = 4;
-            var playTurns = 10;
-
-            var guessTableRowCells = 3; // how manny tds per row
-            var minValueGuess = numberOfDices - 1; // guess table min value
-            var maxValueGuess = (numberOfDices - 1) * 6; // guess table max value
-            var game; //game object
-
-            game = new Game(numberOfDices, playTurns);
-
-            //use for dice animation, check dice.css
-            var diceStyles = [
-                "dice dice-1",
-                "dice dice-4",
-                "dice dice-2",
-                "dice dice-5",
-                "dice dice-3",
-                "dice dice-6"
-            ];
-
-            // DOM vars
-            var guesTable = document.getElementById("guesTable");
-            var dice = document.getElementById("dice");
-            var displayChosenNum = document.getElementById("displayChosenNum");
-            var rollDicesBtn = document.getElementById("rollDicesBtn");
-            var stopDicesBtn = document.getElementById("stopDicesBtn");
-            var roundScore = document.getElementById("roundScore");
-            var totalScore = document.getElementById("totalScore");
-            var turnsLeft = document.getElementById("turnsLeft");
-
-            // Generates table with number witch user to chose
-            guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
-
-            //create and add dices to the div
-            dice.innerHTML = diceElementCreator(numberOfDices);
-
-            // listen for user guess
-            guesTable.querySelectorAll("td").forEach(function(item) {
-                //if there is play turns
-
-                item.addEventListener('click', function() {
-                    //alert("item." + item.innerHTML + " | this." + this.innerHTML);
-                    // get all tds
-                    let tds = guesTable.querySelectorAll("td");
-                    // in case some of them have applyed class
-                    tds.forEach(tdClass => tdClass.className = '');
-                    // display chosen number
-                    displayChosenNum.innerHTML = item.innerHTML;
-                    // add class to mark the selected number
-                    item.className = 'marked-number';
-                    // remove disabled from play btn
-                    rollDicesBtn.disabled = false;
-                });
-            });
-
-
-
-            // play round btn triggered
-            diceDiv = dice.getElementsByTagName("span"); //arr
-            var animation;
-            function diceAnimation() {
-                for (let i = 0; i < diceDiv.length; i++) {
-                    diceDiv[i].setAttribute("class", diceStyles[randomNumber(0, 5)]);
-                }
-            }
-
-            rollDicesBtn.addEventListener('click', function() {
-                //lock table
-                guesTable.style.pointerEvents = "none";
-                stopDicesBtn.disabled = false;
-                rollDicesBtn.disabled = true;
-                game.guess = Number(displayChosenNum.innerHTML);
-                //animate dices
-                animation = setInterval(function() {
-                    diceAnimation();
-                }, 200);
-
-                //set interval func
-                //setInterval("startAnimateDice()", 100)
-            });
-
-            //stop btn
-            stopDicesBtn.addEventListener('click', function() {
-
-                game.rollDices();
-                game.getPlayerRoundScore();
-                game.getPlayerTotalScore();
-
-                //stop animate dice
-                //dice.getElementsByTagName("span")
-                console.log(game.dices);
-                clearInterval(animation);
-                //dispaly numbers for dices
-
-                roundScore.innerHTML = "Game: " + (playTurns - game.turnsLeft) + " | Score: " + game.roundScore;
-                totalScore.innerHTML = "Score: " + game.totalScore;
-                turnsLeft.innerHTML = "Games left: " + game.turnsLeft;
-
-                guesTable.style.pointerEvents = "auto";
-                stopDicesBtn.disabled = true;
-                rollDicesBtn.disabled = true;
-
-            });
-
-
-
-
-
-
-        })
-
-    </script>
-
-
-
-    <script>
-        //fix navbar collapse for hashnav
-        $(document).on('click', '.navbar-collapse.in', function(e) {
-            if ($(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle') {
-                $(this).collapse('hide');
-            }
-        });
-
-
-
-
-
-
-        var i = 0;
-        var myDice = document.getElementById("animatedDIce");
-
-        function startAnimateDice() {
-
-
-            var myDices = [
-                "dice dice-1",
-                "dice dice-4",
-                "dice dice-2",
-                "dice dice-5",
-                "dice dice-3",
-                "dice dice-6"
-            ];
-
-
-
-            //code goes here that will be run every 5 seconds.
-            var iCount = myDices.length;
-            //var i = 0;
-            myDice.className = myDices[i];
-            i++;
-            if (i == iCount) {
-                i = 0;
-            }
-        }
-
-    </script>
 </body>
 
 </html>

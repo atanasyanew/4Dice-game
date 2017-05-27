@@ -177,7 +177,7 @@ table.guess-table td {
     text-align: center;
     font-size: 900%;
     font-weight: 900;
-    border: 5px solid rgba(255, 255, 255, .7);
+/*    border: 5px solid rgba(255, 255, 255, .7);*/
     margin-top: 0;
     margin-bottom: 30px;
     margin-left: auto;
@@ -202,7 +202,7 @@ table.guess-table td:hover {
 }
 
 .btn-game {
-    border: 2px solid rgba(255, 255, 255, .7);
+/*    border: 2px solid rgba(255, 255, 255, .7);*/
     color: #fff;
     background: rgba(3, 3, 3, 0.1);
     text-align: center;
@@ -214,8 +214,19 @@ table.guess-table td:hover {
     background: rgba(3, 3, 3, 0.5);
 }
 
+
+
+.dice-group {
+   margin-bottom: 30px;
+}
+
+.dice-group > span {
+   margin: 1px;
+    
+}
+
 .dice-group > span:last-child {
-    margin-left: 10%;
+    margin-left: 5%;
     
 }
 
