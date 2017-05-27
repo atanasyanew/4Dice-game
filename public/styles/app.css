@@ -92,6 +92,7 @@ legend {
 
 /*FORMS, INPUTS*/
 
+
 /*
 .inp-tra,
 input[type="number"],
@@ -211,6 +212,11 @@ table.guess-table td:hover {
 .btn-game:hover {
     color: #fff;
     background: rgba(3, 3, 3, 0.5);
+}
+
+.dice-group > span:last-child {
+    margin-left: 10%;
+    
 }
 
 

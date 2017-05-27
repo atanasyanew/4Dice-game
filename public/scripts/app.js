@@ -47,9 +47,9 @@ function createTableWithNumbers(startNum, endNum, tdCells) {
     // creates table
     // based on start end numbers 
     // and how manny td per row
-    startNum = (typeof startNum !== 'undefined') ? startNum  : 1;
-    endNum = (typeof endNum !== 'undefined') ?  endNum : 20;
-    tdCells = (typeof tdCells !== 'undefined') ? tdCells  : 3;
+    startNum = (typeof startNum !== 'undefined') ? startNum : 1;
+    endNum = (typeof endNum !== 'undefined') ? endNum : 20;
+    tdCells = (typeof tdCells !== 'undefined') ? tdCells : 3;
 
     var table = "";
     var rows = (endNum - startNum) / tdCells;
@@ -73,6 +73,19 @@ function createTableWithNumbers(startNum, endNum, tdCells) {
 }
 
 /**
+ * Creates string that contains span element for each dice
+ * @param  {integer} 	n	        Number of dice spans (default value: 4)
+ * @return {string}                 string with n x <span class="dice dice-6" title="Dice i"></span>
+ */
+function diceElementCreator(n) {
+    let diceString = "";
+    for (let i = 1; i < n + 1; i++) {
+        diceString += "<span class=\"dice dice-6\" title=\"Dice " + i + "\"></span>";
+    }
+    return diceString;
+}
+
+/**
  * @param  {integer}    numOfDices      Serves for array with int key where to store each dice. 
  * The last key in the array is the control dice, check game rules 
  * 
@@ -91,8 +104,8 @@ function Game(numOfDices, numOfTurns) {
     this.turnsLeft = numOfTurns;
 
     this.roundNumber = 0;
-    
-    
+
+
 
 }
 
@@ -128,4 +141,3 @@ Game.prototype.getPlayerTotalScore = function () {
 
     return this.totalScore = this.totalScore + this.roundScore;
 }
-

@@ -132,10 +132,6 @@
                                 </div>
 
                                 <div id="dice" class="dice-group">
-                                    <span id="animatedDIce" class="dice dice-1" title="Dice 1"></span>
-                                    <span class="dice dice-4" title="Dice 2"></span>
-                                    <span class="dice dice-3" title="Dice 3"></span>
-                                    <span style="margin-left: 10%" class="dice dice-6" title="Dice 4"></span>
                                 </div>
 
                                 <br>
@@ -211,10 +207,20 @@
 
             var guessTableRowCells = 3; // how manny tds per row
             var minValueGuess = numberOfDices - 1; // guess table min value
-            var maxValueGuess = (numberOfDices-1) * 6; // guess table max value
+            var maxValueGuess = (numberOfDices - 1) * 6; // guess table max value
             var game; //game object
 
             game = new Game(numberOfDices, playTurns);
+
+            //use for dice animation, check dice.css
+            var diceStyles = [
+                "dice dice-1",
+                "dice dice-4",
+                "dice dice-2",
+                "dice dice-5",
+                "dice dice-3",
+                "dice dice-6"
+            ];
 
             // DOM vars
             var guesTable = document.getElementById("guesTable");
@@ -229,10 +235,13 @@
             // Generates table with number witch user to chose
             guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
 
+            //create and add dices to the div
+            dice.innerHTML = diceElementCreator(numberOfDices);
+
             // listen for user guess
             guesTable.querySelectorAll("td").forEach(function(item) {
                 //if there is play turns
-                
+
                 item.addEventListener('click', function() {
                     //alert("item." + item.innerHTML + " | this." + this.innerHTML);
                     // get all tds
@@ -249,7 +258,16 @@
             });
 
 
+
             // play round btn triggered
+            diceDiv = dice.getElementsByTagName("span"); //arr
+            var animation;
+            function diceAnimation() {
+                for (let i = 0; i < diceDiv.length; i++) {
+                    diceDiv[i].setAttribute("class", diceStyles[randomNumber(0, 5)]);
+                }
+            }
+
             rollDicesBtn.addEventListener('click', function() {
                 //lock table
                 guesTable.style.pointerEvents = "none";
@@ -257,13 +275,17 @@
                 rollDicesBtn.disabled = true;
                 game.guess = Number(displayChosenNum.innerHTML);
                 //animate dices
+                animation = setInterval(function() {
+                    diceAnimation();
+                }, 200);
+
                 //set interval func
                 //setInterval("startAnimateDice()", 100)
             });
 
             //stop btn
             stopDicesBtn.addEventListener('click', function() {
-                
+
                 game.rollDices();
                 game.getPlayerRoundScore();
                 game.getPlayerTotalScore();
@@ -271,8 +293,9 @@
                 //stop animate dice
                 //dice.getElementsByTagName("span")
                 console.log(game.dices);
+                clearInterval(animation);
                 //dispaly numbers for dices
-                
+
                 roundScore.innerHTML = "Game: " + (playTurns - game.turnsLeft) + " | Score: " + game.roundScore;
                 totalScore.innerHTML = "Score: " + game.totalScore;
                 turnsLeft.innerHTML = "Games left: " + game.turnsLeft;
@@ -280,7 +303,7 @@
                 guesTable.style.pointerEvents = "auto";
                 stopDicesBtn.disabled = true;
                 rollDicesBtn.disabled = true;
-                
+
             });
 
 
@@ -301,6 +324,9 @@
                 $(this).collapse('hide');
             }
         });
+
+
+
 
 
 
@@ -330,7 +356,6 @@
                 i = 0;
             }
         }
-
 
     </script>
 </body>
