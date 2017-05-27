@@ -103,7 +103,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><span class="pull-left">Games: 0/10</span> <span class="pull-right">Score: 3240</span></h1>
+                            <h3><span class="pull-left" id="turnsLeft">Games left: 10</span> <span class="pull-right" id="totalScore">Score: 0</span></h1>
                         </div>
                     </div>
 
@@ -148,7 +148,8 @@
                                         <button id="stopDicesBtn" type="submit" disabled class="btn btn-block btn-game"><i class="glyphicon glyphicon-stop"></i> STOP</button>
                                     </div>
                                 </div>
-                                <h4 class="text-center">Auto stop roll after <span class="text-danger"><b>10s!</b></span></h4>
+                                <h4 class="">Auto stop roll after <b>10s!</b></h4>
+                                <h3 class="bordered" id="roundScore">Game: 0 | Score: 0</h3>
                             </div>
                         </div>
                     </div>
@@ -203,64 +204,91 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-                    
-                    //config params
-                    var numberOfDices = 4;
-                    var playTurns = 10;
-            
-                    
-                    var guessTableRowCells = 3; // how manny tds per row
-                    var minValueGuess = numberOfDices - 1; // guess table min value
-                    var maxValueGuess = numberOfDices * 6; // guess table max value
-                    var game; //game object
-            
-                    game = new Game(numberOfDices, playTurns);
 
-                    // DOM vars
-                    var guesTable = document.getElementById("guesTable");
-                    var displayChosenNum = document.getElementById("displayChosenNum");
-                    var rollDicesBtn = document.getElementById("rollDicesBtn");
-                    var stopDicesBtn = document.getElementById("stopDicesBtn");
+            //config params
+            var numberOfDices = 4;
+            var playTurns = 10;
 
+            var guessTableRowCells = 3; // how manny tds per row
+            var minValueGuess = numberOfDices - 1; // guess table min value
+            var maxValueGuess = (numberOfDices-1) * 6; // guess table max value
+            var game; //game object
 
-                    // Generates table with number witch user to chose
-                    guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
+            game = new Game(numberOfDices, playTurns);
 
-                    // listen for user guess
-                    guesTable.querySelectorAll("td").forEach(function(item) {
+            // DOM vars
+            var guesTable = document.getElementById("guesTable");
+            var dice = document.getElementById("dice");
+            var displayChosenNum = document.getElementById("displayChosenNum");
+            var rollDicesBtn = document.getElementById("rollDicesBtn");
+            var stopDicesBtn = document.getElementById("stopDicesBtn");
+            var roundScore = document.getElementById("roundScore");
+            var totalScore = document.getElementById("totalScore");
+            var turnsLeft = document.getElementById("turnsLeft");
 
-                        item.addEventListener('click', function() {
-                            //alert("item." + item.innerHTML + " | this." + this.innerHTML);
-                            // get all tds
-                            let tds = guesTable.querySelectorAll("td");
-                            // in case some of them have applyed class
-                            tds.forEach(tdClass => tdClass.className = '');
-                            // display chosen number
-                            displayChosenNum.innerHTML = item.innerHTML;
-                            // add class to mark the selected number
-                            item.className = 'marked-number';
-                            // remove disabled from play btn
-                            rollDicesBtn.disabled = false;
-                            //lock all tds
-//                            tds.forEach(tdClass => tdClass.className = '');
-                        });
-                    });
+            // Generates table with number witch user to chose
+            guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
 
-                    //animate rolling dices
-//                    rollDicesBtn.addEventListener('click', function() {
-//                        setInterval("startAnimateDice()", 100)
-//                    });
-//
-//                    stopDicesBtn.addEventListener('click', function() {
-//                        clearInterval()
-//                    });
+            // listen for user guess
+            guesTable.querySelectorAll("td").forEach(function(item) {
+                //if there is play turns
+                
+                item.addEventListener('click', function() {
+                    //alert("item." + item.innerHTML + " | this." + this.innerHTML);
+                    // get all tds
+                    let tds = guesTable.querySelectorAll("td");
+                    // in case some of them have applyed class
+                    tds.forEach(tdClass => tdClass.className = '');
+                    // display chosen number
+                    displayChosenNum.innerHTML = item.innerHTML;
+                    // add class to mark the selected number
+                    item.className = 'marked-number';
+                    // remove disabled from play btn
+                    rollDicesBtn.disabled = false;
+                });
+            });
 
 
+            // play round btn triggered
+            rollDicesBtn.addEventListener('click', function() {
+                //lock table
+                guesTable.style.pointerEvents = "none";
+                stopDicesBtn.disabled = false;
+                rollDicesBtn.disabled = true;
+                game.guess = Number(displayChosenNum.innerHTML);
+                //animate dices
+                //set interval func
+                //setInterval("startAnimateDice()", 100)
+            });
+
+            //stop btn
+            stopDicesBtn.addEventListener('click', function() {
+                
+                game.rollDices();
+                game.getPlayerRoundScore();
+                game.getPlayerTotalScore();
+
+                //stop animate dice
+                //dice.getElementsByTagName("span")
+                console.log(game.dices);
+                //dispaly numbers for dices
+                
+                roundScore.innerHTML = "Game: " + (playTurns - game.turnsLeft) + " | Score: " + game.roundScore;
+                totalScore.innerHTML = "Score: " + game.totalScore;
+                turnsLeft.innerHTML = "Games left: " + game.turnsLeft;
+
+                guesTable.style.pointerEvents = "auto";
+                stopDicesBtn.disabled = true;
+                rollDicesBtn.disabled = true;
+                
+            });
 
 
 
 
-                })
+
+
+        })
 
     </script>
 
@@ -303,14 +331,6 @@
             }
         }
 
-        window.onload = function() {
-
-
-
-
-
-
-        };
 
     </script>
 </body>

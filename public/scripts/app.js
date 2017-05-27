@@ -35,7 +35,6 @@ function randomNumber(min, max, math) {
     return Math.round(min + rnd * (max - min));
 }
 
-
 /**
  * Generates table body in a given range
  * @param  {integer} 	startNum	Minimum of the range (default value: 1)
@@ -73,8 +72,6 @@ function createTableWithNumbers(startNum, endNum, tdCells) {
 
 }
 
-
-
 /**
  * @param  {integer}    numOfDices      Serves for array with int key where to store each dice. 
  * The last key in the array is the control dice, check game rules 
@@ -94,6 +91,8 @@ function Game(numOfDices, numOfTurns) {
     this.turnsLeft = numOfTurns;
 
     this.roundNumber = 0;
+    
+    
 
 }
 
@@ -102,6 +101,7 @@ Game.prototype.rollDices = function () {
     for (i = 0; i < this.dices.length; i++) {
         diceValues.push(randomNumber(1, 6));
     }
+    this.turnsLeft--;
     return this.dices = diceValues;
 }
 
@@ -128,3 +128,4 @@ Game.prototype.getPlayerTotalScore = function () {
 
     return this.totalScore = this.totalScore + this.roundScore;
 }
+

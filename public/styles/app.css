@@ -82,9 +82,15 @@ legend {
     float: left;
 }
 
+.bordered {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: 5px solid rgba(255, 255, 255, .7);
+}
+
 
 /*FORMS, INPUTS*/
-
 
 /*
 .inp-tra,
@@ -127,9 +133,8 @@ textarea {
 }
 */
 
-
 .navbar-brand-logo {
-/*    padding: 0px;*/
+    /*    padding: 0px;*/
     height: 100%;
     padding-left: 15px;
     width: auto;
@@ -162,6 +167,7 @@ table.guess-table td {
 
 
 /* apply this style when user select number */
+
 .marked-number {
     background-color: rgba(3, 3, 3, 0.4);
 }
