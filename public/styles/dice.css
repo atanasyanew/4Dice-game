@@ -6,9 +6,9 @@
 
 .dice {
     display: inline-block;
-    min-height: 4em;
-    padding-left: 4em;
-    background-size: 4em;
+    min-height: 3em;
+    padding-left: 3em;
+    background-size: 3em;
     background-repeat: no-repeat;
 }
 
