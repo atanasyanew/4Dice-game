@@ -94,6 +94,59 @@ function diceElementCreator(n) {
     return diceString;
 }
 
+//hash nav bar
+function hashNav() {
+    //array with all animations
+    var animationsArr = ['rotatingPlane',
+                        'wave',
+                        'wanderingCubes',
+                        'chasingDots',
+                        'threeBounce',
+                        'circle',
+                        'cubeGrid',
+                        'fadingCircle'];
+    //random animation
+    var animation = animationsArr[(Math.random() * animationsArr.length) | 0];
+
+    //globals
+    var pages = document.querySelectorAll(".page"); // get all pages
+    var hash = location.hash.substring(1); //get hash
+    var showPage = document.getElementById(hash); //get page to show
+    var time = 600;
+
+    //modal loading options
+    var loadingOptions = {
+
+        color: '#fff',
+        opacity: '0.6',
+        backgroundColor: 'rgb(0,0,0)',
+        animation: animation
+    };
+
+    //start ui animation
+    $('body').loadingModal(loadingOptions);
+    $('body').loadingModal('show');
+
+    //be sure all the pages are hide
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = "none";
+    }
+
+    //set timeout when to show pages
+    setTimeout(function () {
+        if (showPage) {
+            showPage.style.display = "block";
+        } else {
+            document.getElementById("gameDashboard").style.display = "block";
+        }
+        $('body').loadingModal('hide');
+    }, time);
+
+    // $('body').loadingModal('destroy');
+    return false; // cancel the click
+
+}
+
 /**
  * @param  {integer}    numOfDices      Serves for array with int key where to store each dice. 
  * The last key in the array is the control dice, check game rules 

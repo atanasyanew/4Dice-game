@@ -9,13 +9,15 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+     hashNav();
+     window.onhashchange = () => hashNav();
      /*
      * MAKE USE OF GAME LOGIC
      */
     
     //config params
     var numberOfDices = 4;
-    var playTurns = 2;
+    var playTurns = 10;
 
     var guessTableRowCells = 3; // how manny tds per row
     var minValueGuess = numberOfDices - 1; // guess table min value
@@ -194,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // fill up user object
                 api.user = JSON.parse(signinRequest.responseText);
                 // redirect
-                location.hash = "playgraund";
+                location.hash = "gameDashboard";
                 // update navbar
                 navSignin.style.display = "none";
                 navUsername.style.display = "block";

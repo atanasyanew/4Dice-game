@@ -23,7 +23,7 @@ UserApi.prototype.logout = function () {
     request.addEventListener("load", function () {
 
         if (this.status == "200") {
-            window.location.hash = "playgraund";
+            window.location.hash = "gameDashboard";
             window.location.reload();
         } else {
             alert("Somthink went wrong, try again!");

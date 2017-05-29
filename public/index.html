@@ -38,11 +38,14 @@
     <!--  APP SCRIPTS  -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="./scripts/appcore.js"></script>
     <script src="./scripts/api.js"></script>
     <script src="./scripts/main.js"></script>
-
+    <!--  MODAL LOADING -->
+    <script src="./scripts/jquery.loadingModal.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./styles/jquery.loadingModal.min.css" type="text/css">
 </head>
 
 <body class="bgimg">
@@ -60,7 +63,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#playgraund"><i class="fa fa-gamepad"></i> The Game</a></li>
+                    <li><a href="#gameDashboard"><i class="fa fa-gamepad"></i> The Game</a></li>
                     <li><a href="#score-page" id="nav-scores" style="display: none;"><i class="fa fa-line-chart"></i> Scores</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -89,8 +92,8 @@
                             <li>Roll the dices</li>
                             <li>Get the score</li>
                         </ul>
-                        </div>
-                        <div class="well transperant">
+                    </div>
+                    <div class="well transperant">
                         <legend>The rules</legend>
                         <p>You can roll 10 times</p>
                         <p>Score evaluation:</p>
@@ -154,9 +157,8 @@
         <div class="page" id="score-page">
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="well transperant table-responsive">
-                        <h3><i class="glyphicon glyphicon-star"></i> TOP players</h3>
+                        <h3><i class="glyphicon glyphicon-star"></i> TOP PLAYERS</h3>
                         <p>Table with the top ranked players</p>
                         <br>
                         <table class="table table-sm table-hover">
@@ -172,15 +174,15 @@
                             <tbody id="tableTopPlayers"></tbody>
                         </table>
                     </div>
-                    
                 </div>
             </div>
 
+
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-5">
+               <div class="col-md-3"></div>
+                <div class="col-md-6">
                     <div class="well transperant table-responsive">
-                        <h3><i class="glyphicon glyphicon-star"></i> MY Scores</h3>
+                        <h3><i class="glyphicon glyphicon-star"></i> MY SCORES</h3>
                         <p>Here you can check your highest score</p>
                         <br>
                         <table class="table table-sm table-hover">
@@ -205,31 +207,33 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <div class="well transperant form-horizontal">
-                        <fieldset>
-                            <legend>SIGN IN</legend>
+                        <div id="signin-form">
+                            <fieldset>
+                                <legend>SIGN IN</legend>
 
-                            <div class="form-group">
-                                <label class="control-label col-xs-4">Email</label>
-                                <div class="col-xs-8">
-                                    <input id="signin-email" required class="form-control" type="text">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">Email</label>
+                                    <div class="col-xs-8">
+                                        <input id="signin-email" required class="form-control" type="email">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-xs-4">Password</label>
-                                <div class="col-xs-8">
-                                    <input id="signin-password" required class="form-control" type="password">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">Password</label>
+                                    <div class="col-xs-8">
+                                        <input id="signin-password" class="form-control" type="password">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-xs-4"></label>
-                                <div class="col-xs-8">
-                                    <input id="signin-btn" type="submit" value="Sign in" class="btn btn-block btn-game rounded">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4"></label>
+                                    <div class="col-xs-8">
+                                        <input id="signin-btn" type="submit" value="Sign in" class="btn btn-block btn-game rounded">
+                                    </div>
                                 </div>
-                            </div>
-                            <a href="#register-page" class="pull-right">Don't Have an Account?</a>
-                        </fieldset>
+                                <a href="#register-page" class="pull-right">Don't Have an Account?</a>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3"></div>
@@ -312,8 +316,6 @@
 </body>
 
 </html>
-
-
 <script>
 
 

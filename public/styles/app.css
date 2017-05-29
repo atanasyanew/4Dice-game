@@ -42,6 +42,7 @@ legend {
     color: #fff;
 }
 
+
 /* WELLS AND TRANSPERANTS STYLES */
 
 .well {
@@ -78,6 +79,7 @@ legend {
     border: 5px solid rgba(255, 255, 255, .7);
 }
 
+
 /*FORMS, INPUTS*/
 
 .inp-tra,
@@ -85,6 +87,7 @@ input[type="number"],
 input[type="date"],
 input[type="text"],
 input[type="password"],
+input[type="email"],
 input[type="number"]:read-only {
     color: #fff;
     background: rgba(3, 3, 3, 0.2);
@@ -101,7 +104,6 @@ textarea {
 
 
 /*NAVIGATION*/
-
 
 .navbar {
     color: #fff;
@@ -120,6 +122,7 @@ textarea {
     padding-left: 15px;
     width: auto;
 }
+
 
 /* TABLES */
 
@@ -144,6 +147,7 @@ table.guess-table td {
     cursor: pointer;
     color: #fff;
 }
+
 
 /* apply this style when user select number */
 
@@ -197,7 +201,6 @@ table.guess-table td:hover {
     margin-left: 5%;
 }
 
-
 .table-hover tbody tr:hover {
     background: rgba(3, 3, 3, 0.5);
 }
@@ -207,8 +210,7 @@ table.guess-table td:hover {
     cursor: pointer;
 }
 
-.table.table-borderless td, .table.table-borderless th {
+.table.table-borderless td,
+.table.table-borderless th {
     border: 0 !important;
 }
-
-
