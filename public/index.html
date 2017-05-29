@@ -38,6 +38,7 @@
     <!--  APP SCRIPTS  -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="./scripts/appcore.js"></script>
     <script src="./scripts/api.js"></script>
     <script src="./scripts/main.js"></script>
@@ -59,18 +60,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><i class="fa fa-gamepad"></i> The Game</a></li>
-                    <li><a href="#"><i class="fa fa-bar-chart"></i> Charts</a></li>
+                    <li><a href="#playgraund"><i class="fa fa-gamepad"></i> The Game</a></li>
+                    <li><a href="#score-page" id="nav-scores" style="display: none;"><i class="fa fa-line-chart"></i> Scores</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="glyphicon glyphicon-user"></i> </a></li>
-                    <li><a href="#" id="signout"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
-                    <li><a href="#" id="signin"><i class="glyphicon glyphicon-log-in"></i> Sign In</a></li>
+                    <li><a href="#" id="nav-username" style="display: none;"><i class="glyphicon glyphicon-user"></i> <span></span> </a></li>
+                    <li><a href="#" id="nav-signout" style="display: none;"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
+                    <li><a href="#signin-page" id="nav-signin"><i class="glyphicon glyphicon-log-in"></i> Sign In</a></li>
                 </ul>
             </div>
         </div>
     </div>
-
 
 
     <!--    PAGES     -->
@@ -81,7 +81,7 @@
             <div class="row">
 
                 <!--     HOW TO PLAY    -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="well transperant">
                         <legend>How to play?</legend>
                         <ul>
@@ -89,21 +89,23 @@
                             <li>Roll the dices</li>
                             <li>Get the score</li>
                         </ul>
+                        </div>
+                        <div class="well transperant">
                         <legend>The rules</legend>
                         <p>You can roll 10 times</p>
-                        <p>Score valuation:</p>
+                        <p>Score evaluation:</p>
                         <p>If the guess is lower than or equal to the sum of the first three dice, the score is incremented by the guessed number multiplied by the fourth dice.</p>
                         <p>After each turn your score is add to the total score for the gaming session.</p>
                     </div>
                 </div>
 
                 <!--     THE GAME     -->
-                <div class="col-md-6">
+                <div class="col-md-8">
 
                     <!--     GAMES LEFT: 0  TOTAL SCORE: 0     -->
                     <div class="row">
                         <h3 class="text-center"><i class="material-icons">casino</i> PLAYGROUND</h3>
-                        <h3><span class="pull-left" id="turnsLeft">GAMES LEFT: 0</span> <span class="pull-right" id="totalScore">TOTAL SCORE: 0</span></h3>
+                        <h3><span class="pull-left" id="turnsLeft">GAMES LEFT: 10</span> <span class="pull-right" id="totalScore">TOTAL SCORE: 0</span></h3>
                     </div>
                     <br>
 
@@ -135,7 +137,7 @@
 
                         <!--     PLAY AGAIN     -->
                         <div id="playagain" class="well transperant" style="display: none">
-                            <h3 class="text-center" id="roundScore">SESSION SCORE: 0</h3>
+                            <h3 class="text-center" id="playAgainroundScore">SESSION SCORE: 0</h3>
                             <h2 class="text-center">GAME END</h2>
                             <button id="btnPlayAgain" type="submit" class="btn btn-block btn-game rounded"><i class="glyphicon glyphicon-repeat"></i> PLAY AGAIN</button>
                             <button id="btnSaveScore" type="submit" class="btn btn-block btn-game rounded"><i class="glyphicon glyphicon-floppy-disk"></i> SAVE TOTAL SCORE</button>
@@ -143,44 +145,62 @@
                     </div>
                 </div>
 
-                <!--     THE SCORE     -->
-                <div class="col-md-3">
-                    <div class="well transperant">
-                        <legend><i class="glyphicon glyphicon-star"></i> TOP players</legend>
-                        <ul>
-                            <li>pladasdsd dasd adaayer 1 - 10000</li>
-                            <li>player 2 - 1300</li>
-                            <li>player 3 - 1200</li>
-                            <li>player 4 - 1100</li>
-                            <li>player 5 - 1100</li>
-                            <li>player 6 - 1100</li>
-                            <li>player 7 - 1100</li>
-                            <li>player 8 - 1100</li>
-                            <li>player 9 - 1100</li>
-                            <li>player 10 - 1100</li>
 
-                        </ul>
-                        <legend><i class="glyphicon glyphicon-star"></i> MY Scores</legend>
-                        <ul>
-                            <li>score 1 - 10000</li>
-                            <li>score 2 - 1300</li>
-                            <li>score 3 - 1200</li>
-                            <li>score 4 - 1100</li>
-                            <li>score 5 - 1100</li>
-                            <li>score 6 - 1100</li>
-                            <li>score 7 - 1100</li>
-                            <li>score 8 - 1100</li>
-                            <li>score 9 - 1100</li>
-                            <li>score 10 - 1100</li>
-                        </ul>
-                    </div>
-                </div>
 
             </div>
         </div>
 
+        <!--    SCORE TABLES    -->
+        <div class="page" id="score-page">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="well transperant table-responsive">
+                        <h3><i class="glyphicon glyphicon-star"></i> TOP players</h3>
+                        <p>Table with the top ranked players</p>
+                        <br>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th onclick="w3.sortHTML('#tableTopPlayers', '.item', 'td:nth-child(1)')">Username <i class="glyphicon glyphicon-sort"></i></th>
+                                    <th onclick="w3.sortHTML('#tableTopPlayers', '.item', 'td:nth-child(1)')">First Name <i class="glyphicon glyphicon-sort"></i></th>
+                                    <th onclick="w3.sortHTML('#tableTopPlayers', '.item', 'td:nth-child(2)')">Last Name <i class="glyphicon glyphicon-sort"></i></th>
+                                    <th onclick="w3.sortHTML('#tableTopPlayers', '.item', 'td:nth-child(3)')">Score <i class="glyphicon glyphicon-sort"></i></th>
+                                    <th onclick="w3.sortHTML('#tableTopPlayers', '.item', 'td:nth-child(4)')">Added At <i class="glyphicon glyphicon-sort"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableTopPlayers"></tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <div class="well transperant table-responsive">
+                        <h3><i class="glyphicon glyphicon-star"></i> MY Scores</h3>
+                        <p>Here you can check your highest score</p>
+                        <br>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Score</th>
+                                    <th>Added At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableMyTopScore"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+
         <!--     SIGN IN PAGE  -->
-        <div class="page" id="signin">
+        <div class="page" id="signin-page">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -191,24 +211,24 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Email</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="signin-email" required class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="signin-password" required class="form-control" type="password">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4"></label>
                                 <div class="col-xs-8">
-                                    <input type="submit" value="Sign in" class="btn btn-block btn-game rounded">
+                                    <input id="signin-btn" type="submit" value="Sign in" class="btn btn-block btn-game rounded">
                                 </div>
                             </div>
-                            <a href="#createAccount" class="pull-right">Don't Have an Account?</a>
+                            <a href="#register-page" class="pull-right">Don't Have an Account?</a>
                         </fieldset>
                     </div>
                 </div>
@@ -216,9 +236,8 @@
             </div>
         </div>
 
-
-        <!--     SIGN IN PAGE  -->
-        <div class="page" id="register">
+        <!--     REGISTER PAGE  -->
+        <div class="page" id="register-page">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -229,51 +248,51 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Email</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="register-email" class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Username</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="register-username" class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="password">
+                                    <input id="register-password" class="form-control" type="password">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Password</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="password">
+                                    <input id="register-passwordRepeat" class="form-control" type="password">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4">First Name</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="register-firstname" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-xs-4">Last Name</label>
                                 <div class="col-xs-8">
-                                    <input class="form-control" type="text">
+                                    <input id="register-lastname" class="form-control" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-xs-4"></label>
                                 <div class="col-xs-8">
-                                    <input type="submit" value="Sign in" class="btn btn-block btn-game rounded">
+                                    <input id="register-btn" type="submit" value="Sign in" class="btn btn-block btn-game rounded">
                                 </div>
                             </div>
-                            <a href="#signin" class="pull-right">Already Registered?</a>
+                            <a href="#signin-page" class="pull-right">Already Registered?</a>
                         </fieldset>
                     </div>
                 </div>

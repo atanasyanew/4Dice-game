@@ -2,15 +2,20 @@
  *
  *
  *   MAKE USE OF GAME LOGIC
- *
+ *            AND
+ *   MAKE USE OF GAME LOGIC
  *
  */
 
 document.addEventListener('DOMContentLoaded', function () {
 
+     /*
+     * MAKE USE OF GAME LOGIC
+     */
+    
     //config params
     var numberOfDices = 4;
-    var playTurns = 10;
+    var playTurns = 2;
 
     var guessTableRowCells = 3; // how manny tds per row
     var minValueGuess = numberOfDices - 1; // guess table min value
@@ -42,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var playgraund = document.getElementById("playgraund");
     var playagain = document.getElementById("playagain");
     var btnPlayAgain = document.getElementById("btnPlayAgain");
+    var playAgainroundScore = document.getElementById("playAgainroundScore");
 
     // Generates table with number witch user to chose
     guesTable.innerHTML = createTableWithNumbers(minValueGuess, maxValueGuess, guessTableRowCells);
@@ -118,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         roundScore.innerHTML = "SESSION SCORE: " + game.roundScore;
         totalScore.innerHTML = "TOTAL SCORE: " + game.totalScore;
         turnsLeft.innerHTML = "GAMES LEFT: " + game.turnsLeft;
+        playAgainroundScore.innerHTML = "SESSION SCORE: " + game.roundScore;
 
         guesTable.style.pointerEvents = "auto";
         guesTable.querySelectorAll("td").forEach(tdClass => tdClass.className = '');
@@ -129,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             playagain.style.display = "block";
         }
     });
-    
+
     //play again
     btnPlayAgain.addEventListener('click', function () {
 
@@ -144,6 +151,142 @@ document.addEventListener('DOMContentLoaded', function () {
 
         playgraund.style.display = "block";
         playagain.style.display = "none";
+        btnSaveScore.disabled = false;
+    });
+
+    /*
+     * MAKE USE OF API
+     */
+
+    var signinBtn = document.getElementById("signin-btn");
+    var signinEmail = document.getElementById("signin-email");
+    var signinPassword = document.getElementById("signin-password");
+
+    var registerEmail = document.getElementById("register-email");
+    var registerUsername = document.getElementById("register-username");
+    var registerPassword = document.getElementById("register-password");
+    var registerPasswordRepeat = document.getElementById("register-passwordRepeat");
+    var registerFirstname = document.getElementById("register-firstname");
+    var registerLastname = document.getElementById("register-lastname");
+    var registerBtn = document.getElementById("register-btn");
+
+    var navUsername = document.getElementById("nav-username");
+    var navSignout = document.getElementById("nav-signout");
+    var navSignin = document.getElementById("nav-signin");
+    var navScores = document.getElementById("nav-scores");
+
+    var btnSaveScore = document.getElementById("btnSaveScore");
+
+    var api = new UserApi();
+
+    //sgin in 
+    signinBtn.addEventListener('click', function () {
+        var self = this;
+        let signinRequest = new XMLHttpRequest();
+        let url = api.url + "/users/login";
+
+        signinRequest.open("POST", url, true);
+        signinRequest.setRequestHeader("Content-Type", "application/json");
+
+        signinRequest.addEventListener("load", function () {
+
+            if (signinRequest.status == "200") {
+                // fill up user object
+                api.user = JSON.parse(signinRequest.responseText);
+                // redirect
+                location.hash = "playgraund";
+                // update navbar
+                navSignin.style.display = "none";
+                navUsername.style.display = "block";
+                navUsername.getElementsByTagName("span")[0].innerHTML = api.user.username;
+                navSignout.style.display = "block";
+                navScores.style.display = "block";
+                //get scores
+                api.getTopScores();
+                api.getPlayerScores();
+
+            } else {
+                let msg = "No account with the given email and/or password were found";
+                alert(msg);
+            }
+        });
+
+        let login = {
+            "email": signinEmail.value,
+            "password": signinPassword.value
+        };
+
+        signinRequest.send(JSON.stringify(login));
+
+        // clear signIn fields
+        signinEmail.value = "";
+        signinPassword.value = "";
+
+    });
+
+    //log out
+    navSignout.addEventListener('click', function () {
+        api.logout();
+
+    });
+
+    //register
+    registerBtn.addEventListener('click', function () {
+
+        let request = new XMLHttpRequest();
+        let url = api.url + "/users";
+        let msg = "";
+
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.addEventListener("load", function () {
+
+            if (request.status == "200") {
+                msg = "Your account was created successfully.";
+                alert(msg);
+                location.hash = "signin-page";
+            } else if (request.status == "422") {
+                msg = "Unable to create account, Possible reasons: \n ";
+                msg += " - Email is Taken \n ";
+                msg += " - Username is Taken \n ";
+                msg += " - Password is incorrect \n ";
+                alert(msg);
+            } else {
+                msg = "Somthink went wrong, try again!";
+                alert(msg);
+                console.log(request.status);
+            }
+
+        });
+
+        let register = {
+            "email": registerEmail.value,
+            "username": registerUsername.value,
+            "password": registerPassword.value,
+            "firstName": registerFirstname.value,
+            "lastName": registerLastname.value
+        };
+
+        request.send(JSON.stringify(register));
+        //clear inut fields    
+        registerEmail.value = "";
+        registerUsername.value = "";
+        registerPassword.value = "";
+        registerPasswordRepeat.value = "";
+        registerFirstname.value = "";
+        registerLastname.value = "";
+    });
+
+    //save player score
+    btnSaveScore.addEventListener('click', function () {
+        
+        if (api.user.username !== undefined && api.user.session !== undefined) {
+            api.addScore(game.totalScore);
+            btnSaveScore.disabled = true;
+        } else {
+            alert("You have to be logged in");
+            location.hash = "signin-page";
+        }
     });
 
 })

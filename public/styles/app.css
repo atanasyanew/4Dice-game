@@ -42,7 +42,6 @@ legend {
     color: #fff;
 }
 
-
 /* WELLS AND TRANSPERANTS STYLES */
 
 .well {
@@ -79,7 +78,6 @@ legend {
     border: 5px solid rgba(255, 255, 255, .7);
 }
 
-
 /*FORMS, INPUTS*/
 
 .inp-tra,
@@ -105,21 +103,16 @@ textarea {
 /*NAVIGATION*/
 
 
-/*
 .navbar {
     color: #fff;
     border: none;
-    background: rgba(3, 3, 3, 0.8);
+    background: rgba(3, 3, 3, 0.6);
 }
-*/
 
-
-/*
 .navbar-collapse {
     text-align: center;
     max-height: none;
 }
-*/
 
 .navbar-brand-logo {
     /*    padding: 0px;*/
@@ -127,7 +120,6 @@ textarea {
     padding-left: 15px;
     width: auto;
 }
-
 
 /* TABLES */
 
@@ -152,7 +144,6 @@ table.guess-table td {
     cursor: pointer;
     color: #fff;
 }
-
 
 /* apply this style when user select number */
 
@@ -207,42 +198,17 @@ table.guess-table td:hover {
 }
 
 
-/*
 .table-hover tbody tr:hover {
     background: rgba(3, 3, 3, 0.5);
 }
-*/
 
+.table-hover th:hover {
+    background: rgba(3, 3, 3, 0.5);
+    cursor: pointer;
+}
 
-/*
-.table.table-borderless td,    .table.table-borderless th {
+.table.table-borderless td, .table.table-borderless th {
     border: 0 !important;
 }
-*/
 
 
-/*.dl-horizontal dt {*/
-
-
-/* Override the default bootstrap behavior where horizontal description lists 
-will truncate terms that are too long to fit in the left column 
-*/
-
-
-/*
-    float: left;
-    width: 100px;
-    clear: left;
-    text-align: right;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-*/
-
-
-/*
-.dl-horizontal dd {
-    margin-left: 120px;
-}
-*/
